@@ -35,10 +35,11 @@ int main()
   PID pid;
 
   // Initialize the pid variable.
-  double init_Kp = 0.2;
+  double init_Kp = 0.1;
   double init_Kd = 3.0;
-  double init_Ki = 0.004;
+  double init_Ki = 0.0002;
 
+  // call init
   pid.Init(init_Kp, init_Ki, init_Kd);
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
@@ -56,7 +57,7 @@ int main()
           double cte = std::stod(j[1]["cte"].get<std::string>());
           double speed = std::stod(j[1]["speed"].get<std::string>());
           double angle = std::stod(j[1]["steering_angle"].get<std::string>());
-          double steer_value;
+          //double steer_value;
           double steer_adj;
           /*
           * Calcuate steering value here, remember the steering value is
@@ -69,7 +70,7 @@ int main()
 
           steer_value = pid.TotalError();
 
-          if(steer_value > 1 ){
+         /* if(steer_value > 1 ){
             steer_adj = 1;
           }
           else if (steer_value < -1){
@@ -77,11 +78,12 @@ int main()
           }
           else{
             steer_adj = steer_value;
-          }
+          }*/
           
           // DEBUG
-          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << "adj steering value" << steer_adj << std::endl;
-
+          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << endl;
+	
+	  // throttle controller gain and offset
           double throttle;
           double Kp_t = 0.25;
           double p_t_error = fabs(steer_value);
