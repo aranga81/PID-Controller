@@ -15,7 +15,7 @@ Integral component tries to reduce the steady state error to zero. The bias in C
 I started off with manual tuning.
 First with a Kp = 0.1, Kd & ki = 0. The car in the simulator oscillates heavily about the center of the the track as CTE error starts to increase. 
 Next step was tuning Kd to eliminate overshoot and oscillations - using kd = 3.0 worked best. Just using PD controller the car could easily navigate on the track without oscillations and overshoot. 
-Just to make sure the car follows middle of the track and hence to reduce CTE during turns a small Ki gain of 0.0002 was applied. 
+Just to make sure the car follows middle of the track and hence to reduce CTE during turns a small Ki gain of 0.0003 was applied. 
 Also the PID controller gains can be tuned using optimization techniques like twiddling, SGD. 
 
 Apart from PID controller that was implemented to compensate CTE and adjust steering angle, a throttle controller was implemented. Car needs to slow down and acceralate as the steering angle input is large and respectively small. Hence the input to throttle controller is (1 - absolute(steering angle)) and I used a gain and offset to scale the throttle input.
